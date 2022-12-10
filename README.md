@@ -50,3 +50,38 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+## Aliases
+
+We have the following aliases.
+
+| Alias          | PATH                        |
+| -------------- | --------------------------- |
+| `@`            | src/\*                      |
+| `@atoms`       | src/components/atoms/\*     |
+| `@molecules`   | src/components/molecules/\* |
+| `@organisms`   | src/components/organisms/\* |
+| `@templates`   | src/components/templates/\* |
+| `@views`       | src/views/\*                |
+
+To add a new alias, you only have to configure the alias path in the `vite.config.ts` file.
+
+```typescript
+// vite.config.ts
+
+alias: {
+  // ... rest
+  "@new": fileURLToPath(new URL("NEW_ALIAS_PATH", import.meta.url)),
+},
+```
+
+And add the new alias in `tsconfig.app.json` file.
+
+```typescript
+// tsconfig.app.json
+
+paths: {
+  // ... rest
+  "@new/*": ["NEW_ALIAS_PATH/*"],
+},
+```
