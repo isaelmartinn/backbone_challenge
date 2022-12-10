@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Http } from "../../domain/repositories/Http";
+import type { Http } from "@domain/repositories/Http";
 
 const headers = {
   "Content-Type": "application/json",

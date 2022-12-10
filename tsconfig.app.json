@@ -12,6 +12,8 @@
       "@organisms/*": ["./src/components/organisms/*"],
       "@templates/*": ["./src/components/templates/*"],
       "@views/*": ["./src/views/*"],
+      "@domain/*": ["./src/domain/*"],
+      "@infrastructure/*": ["./src/infrastructure/*"],
     }
   }
 }

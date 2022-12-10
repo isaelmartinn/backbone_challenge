@@ -1,6 +1,6 @@
-import type { Contact } from "@/domain/models/Contact";
-import type { Http } from "../../domain/repositories/Http";
-import type { ContactsRepository } from "../../domain/repositories/ContactsRepository";
+import type { Contact } from "@domain/models/Contact";
+import type { Http } from "@domain/repositories/Http";
+import type { ContactsRepository } from "@domain/repositories/ContactsRepository";
 import type { ContactDTO } from "../http/dto/ContactDTO";
 
 export const contactRepository = (client: Http): ContactsRepository => ({

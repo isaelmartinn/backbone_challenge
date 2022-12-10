@@ -22,6 +22,10 @@ export default defineConfig({
         new URL("./src/components/templates", import.meta.url)
       ),
       "@views": fileURLToPath(new URL("./src/views", import.meta.url)),
+      "@domain": fileURLToPath(new URL("./src/domain", import.meta.url)),
+      "@infrastructure": fileURLToPath(
+        new URL("./src/infrastructure", import.meta.url)
+      ),
     },
   },
 });

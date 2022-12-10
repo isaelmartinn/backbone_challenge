@@ -55,14 +55,16 @@ npm run lint
 
 We have the following aliases.
 
-| Alias          | PATH                        |
-| -------------- | --------------------------- |
-| `@`            | src/\*                      |
-| `@atoms`       | src/components/atoms/\*     |
-| `@molecules`   | src/components/molecules/\* |
-| `@organisms`   | src/components/organisms/\* |
-| `@templates`   | src/components/templates/\* |
-| `@views`       | src/views/\*                |
+| Alias              | PATH                        |
+| ------------------ | --------------------------- |
+| `@`                | src/\*                      |
+| `@atoms`           | src/components/atoms/\*     |
+| `@molecules`       | src/components/molecules/\* |
+| `@organisms`       | src/components/organisms/\* |
+| `@templates`       | src/components/templates/\* |
+| `@views`           | src/views/\*                |
+| `@domain`          | src/domain/\*               |
+| `@infrastructure`  | src/infrastructure/\*       |
 
 To add a new alias, you only have to configure the alias path in the `vite.config.ts` file.
 

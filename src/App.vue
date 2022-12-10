@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { RouterView } from "vue-router";
-import { contactService } from "./domain/services/Contact.service";
+import { contactService } from "@domain/services/Contact.service";
 
 onMounted(async () => {
   const contacts = await contactService.getContacts();
-  console.log("we", contacts);
+  console.log(contacts);
 });
 </script>
 
