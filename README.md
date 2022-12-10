@@ -85,3 +85,40 @@ paths: {
   "@new/*": ["NEW_ALIAS_PATH/*"],
 },
 ```
+
+## Env Variables
+
+The project consists of some environment variables to be able to function correctly.
+
+You must create a file in the root folder of the project called `.env.local`.
+
+In the file called .env.example you will find the environment variables for the sandbox environment.
+
+Environment variables must start with `VITE_` to be recognized by Vite, check out the [env variables and modes](https://vitejs.dev/guide/env-and-mode.html) to learn more.
+
+### Add new env var
+
+To add a new environment variable, you must first create the variable in the `.env.local` and `.env.example` files.
+
+```
+// .env.local
+
+VITE_APP_TITLE=my title
+```
+
+```
+// .env.example
+
+VITE_APP_TITLE=my title
+```
+
+Finally, the name of the variable must be added in the following `env.d.ts` file, this helps us so that the IDE gives us the different environment variables that we have created as options. Check out the [intelliSense for TypeScript](https://vitejs.dev/guide/env-and-mode.html#intellisense-for-typescript) to learn more.
+
+```typescript
+// env.d.ts
+
+interface ImportMetaEnv {
+  readonly VITE_APP_TITLE: string;
+  // more env variables...
+}
+```
