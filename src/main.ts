@@ -1,12 +1,12 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import { create, NButton } from "naive-ui";
+import { create, NButton, NDataTable } from "naive-ui";
 
 import App from "./App.vue";
 import router from "./router";
 
 const naive = create({
-  components: [NButton],
+  components: [NButton, NDataTable],
 });
 
 const app = createApp(App);

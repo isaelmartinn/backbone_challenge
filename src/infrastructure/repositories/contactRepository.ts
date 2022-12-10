@@ -17,6 +17,7 @@ export const contactRepository = (client: Http): ContactsRepository => ({
         lastName: string;
         email: string;
         phone: string;
+        createdAt: string;
       }): Contact => ({
         id: contactDTO.id,
         name: {
@@ -25,6 +26,7 @@ export const contactRepository = (client: Http): ContactsRepository => ({
         },
         email: contactDTO.email,
         phone: contactDTO.phone,
+        createdAt: contactDTO.createdAt,
       })
     );
 

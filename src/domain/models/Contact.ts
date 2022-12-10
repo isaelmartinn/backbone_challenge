@@ -8,4 +8,5 @@ export type Contact = {
   name: Name;
   email: string;
   phone: string;
+  createdAt: string;
 };

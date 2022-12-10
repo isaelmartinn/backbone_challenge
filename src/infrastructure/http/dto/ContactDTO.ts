@@ -8,4 +8,5 @@ export interface ContactDTO {
   name: Name;
   email: string;
   phone: string;
+  createdAt: string;
 }
