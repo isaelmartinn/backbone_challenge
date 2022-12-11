@@ -9,4 +9,8 @@ export const contactService = {
   getContact: (id: string | string[]) => {
     return contactRepository(httpAxios).getContact(id);
   },
+
+  deleteContact: (id: string) => {
+    return contactRepository(httpAxios).deleteContact(id);
+  },
 };
