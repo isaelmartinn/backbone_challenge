@@ -1,0 +1,16 @@
+@use "./font-montserrat.scss";
+
+$bold: (
+  "xsmall": 700 10px/13px "Montserrat",
+  "small": 600 14px/17px "Montserrat",
+  "medium": 600 16px/19px "Montserrat",
+  "large": 700 18px/23px "Montserrat",
+);
+
+$label: (
+  "large": 600 18px/23.4px "Montserrat",
+);
+
+$paragraph: (
+  "medium": 500 16px/25.6px "Montserrat",
+);

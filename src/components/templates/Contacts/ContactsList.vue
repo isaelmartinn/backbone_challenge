@@ -83,7 +83,6 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
 <style lang="scss" scoped>
 @use "@sass/colors" as colors;
 @use "@sass/breakpoints" as bp;
-
 @use "sass:map";
 
 .contactList {
