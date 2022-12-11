@@ -79,6 +79,7 @@ const openConfirmationDialog = () => {
 <style scoped lang="scss">
 @use "sass:map";
 @use "@sass/fonts" as fonts;
+@use "@sass/breakpoints" as bp;
 
 .contactView,
 .contactView__actions {
@@ -95,7 +96,9 @@ const openConfirmationDialog = () => {
   font: map.get(fonts.$paragraph, "medium");
 }
 
-.contactView__actions {
-  justify-content: end;
+@media screen and (min-width: map.get(bp.$breakpoints, "768")) {
+  .contactView__actions {
+    justify-content: end;
+  }
 }
 </style>

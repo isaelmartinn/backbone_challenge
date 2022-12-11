@@ -104,12 +104,8 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
 
 <style lang="scss" scoped>
 @use "@sass/colors" as colors;
-@use "@sass/breakpoints" as bp;
 @use "sass:map";
 
-.contactList {
-  padding: 16px;
-}
 .contactList__table {
   margin: 0 auto;
   width: min(100%, 1000px);
@@ -123,11 +119,5 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
   color: map.get(colors.$neutrals, "darkBlue");
   margin: 0 auto 50px auto;
   width: fit-content;
-}
-
-@media screen and (min-width: map.get(bp.$breakpoints, "768")) {
-  .contactList {
-    padding: 60px;
-  }
 }
 </style>

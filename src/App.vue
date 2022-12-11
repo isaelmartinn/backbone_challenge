@@ -7,8 +7,9 @@ import { RouterView } from "vue-router";
 </template>
 
 <style lang="scss">
-@use "@sass/colors" as colors;
 @use "sass:map";
+@use "@sass/colors" as colors;
+@use "@sass/breakpoints" as bp;
 
 * {
   margin: 0;
@@ -17,5 +18,12 @@ import { RouterView } from "vue-router";
 
 body {
   background-color: map.get(colors.$neutrals, "lightgray");
+  padding: 16px;
+}
+
+@media screen and (min-width: map.get(bp.$breakpoints, "768")) {
+  body {
+    padding: 60px;
+  }
 }
 </style>
