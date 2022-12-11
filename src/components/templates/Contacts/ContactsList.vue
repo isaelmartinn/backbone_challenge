@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
 import dayjs from "dayjs";
+import { ref, watchEffect } from "vue";
 
 import type { Contact } from "@domain/models/Contact";
 import type { Pagination } from "@domain/models/Pagination";
@@ -16,6 +16,7 @@ const props = defineProps<Props>();
 const currentPage = ref(0);
 
 const emit = defineEmits<{
+  (e: "on-click-view-contact", id: string): void;
   (e: "on-current-page-change", currentPage: number): void;
 }>();
 
@@ -63,6 +64,18 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
             <template v-else> {{ formatDate(createdAt) }} </template>
           </template>
         </el-table-column>
+
+        <el-table-column label="Operations">
+          <template #default="scope">
+            <el-button
+              size="small"
+              :disabled="loading"
+              @click="emit('on-click-view-contact', scope.row.id)"
+            >
+              view
+            </el-button>
+          </template>
+        </el-table-column>
       </el-table>
 
       <br />
@@ -83,7 +96,6 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
 <style lang="scss" scoped>
 @use "@sass/colors" as colors;
 @use "@sass/breakpoints" as bp;
-
 @use "sass:map";
 
 .contactList {
