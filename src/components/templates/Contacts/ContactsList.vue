@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
 import dayjs from "dayjs";
+import { ref, watchEffect } from "vue";
 
 import type { Contact } from "@domain/models/Contact";
 import type { Pagination } from "@domain/models/Pagination";

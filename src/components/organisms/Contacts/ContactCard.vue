@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import dayjs from "dayjs";
+import { computed } from "vue";
+
 interface Props {
   name: string;
   email: string;
@@ -8,6 +11,8 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
+const createdAt = computed(() => dayjs(props.createdAt).format("DD/MM/YYYY"));
 </script>
 
 <template>
@@ -40,7 +45,7 @@ const props = defineProps<Props>();
       <p class="info__title">Created at:</p>
       <p class="info__value">
         <el-skeleton v-if="loading" :rows="0" animated />
-        <template v-else> {{ props.createdAt }} </template>
+        <template v-else> {{ createdAt }} </template>
       </p>
     </div>
   </section>
