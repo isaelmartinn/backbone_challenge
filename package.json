@@ -12,6 +12,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "datejs": "^1.0.0-rc3",
     "element-plus": "^2.2.26",
     "pinia": "^2.0.28",
     "vue": "^3.2.45",

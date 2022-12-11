@@ -39,8 +39,6 @@ const handleCurrentPageChange = (currentPage: number) => {
       <el-table-column prop="createdAt" label="Created At" />
     </el-table>
 
-    {{ currentPage }}
-
     <el-pagination
       v-model:current-page="currentPage"
       background
