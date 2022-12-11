@@ -19,6 +19,11 @@ const router = createRouter({
       name: "contactDelete",
       component: () => import("@views/Contacts/ContactDelete.vue"),
     },
+    {
+      path: "/contact/create",
+      name: "contactCreate",
+      component: () => import("@views/Contacts/ContactCreate.vue"),
+    },
   ],
 });
 
