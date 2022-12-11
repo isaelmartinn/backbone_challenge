@@ -1,8 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const emit = defineEmits<{
+  (e: "on-click-go-back"): void;
+}>();
+</script>
 
 <template>
   <main class="contactView">
-    <el-page-header>
+    <el-page-header @back="emit('on-click-go-back')">
       <template #content>
         <h1>View contact</h1>
       </template>
@@ -37,15 +41,19 @@
 @use "@sass/fonts" as fonts;
 @use "@sass/colors" as colors;
 
+.contactView,
+.contactView__info,
+.info__wrap {
+  display: grid;
+}
+
 .contactView {
   width: min(100%, 800px);
   margin: 50px auto 0 auto;
-  display: grid;
   row-gap: 30px;
 }
 
 .contactView__info {
-  display: grid;
   row-gap: 16px;
   border: 1px solid map.get(colors.$neutrals, "border");
   border-radius: 8px;
@@ -55,7 +63,6 @@
 
 .info {
   &__wrap {
-    display: grid;
     grid-template-columns: 2fr 10fr;
     align-items: st;
   }
