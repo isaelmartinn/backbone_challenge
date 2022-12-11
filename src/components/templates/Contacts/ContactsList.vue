@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
+import dayjs from "dayjs";
 
 import type { Contact } from "@domain/models/Contact";
 import type { Pagination } from "@domain/models/Pagination";
@@ -24,6 +25,8 @@ watchEffect(() => {
 const handleCurrentPageChange = (currentPage: number) => {
   emit("on-current-page-change", currentPage);
 };
+
+const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
 </script>
 
 <template>
@@ -36,7 +39,11 @@ const handleCurrentPageChange = (currentPage: number) => {
       </el-table-column>
       <el-table-column prop="email" label="Email" />
       <el-table-column prop="phone" label="Phone" />
-      <el-table-column prop="createdAt" label="Created At" />
+      <el-table-column label="Created At">
+        <template #default="{ row: { createdAt } }">
+          {{ formatDate(createdAt) }}
+        </template>
+      </el-table-column>
     </el-table>
 
     <el-pagination
