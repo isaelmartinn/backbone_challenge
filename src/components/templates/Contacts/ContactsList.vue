@@ -16,6 +16,7 @@ const props = defineProps<Props>();
 const currentPage = ref(0);
 
 const emit = defineEmits<{
+  (e: "on-click-create-contact"): void;
   (e: "on-click-view-contact", id: string): void;
   (e: "on-click-delete-contact", id: string): void;
   (e: "on-current-page-change", currentPage: number): void;
@@ -35,6 +36,16 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
 <template>
   <main class="contactList">
     <h1 class="contactList__title">Contacts List</h1>
+
+    <div class="contactList__actions">
+      <el-button
+        size="large"
+        type="primary"
+        @click="emit('on-click-create-contact')"
+      >
+        Create Contact
+      </el-button>
+    </div>
 
     <section class="contactList__table">
       <el-table :data="props.contacts" stripe>
@@ -103,21 +114,35 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
 </template>
 
 <style lang="scss" scoped>
-@use "@sass/colors" as colors;
 @use "sass:map";
+@use "@sass/colors" as colors;
+@use "@sass/fonts" as fonts;
 
-.contactList__table {
-  margin: 0 auto;
+.contactList {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
   width: min(100%, 1000px);
+  margin: 0 auto;
+
+  &__table {
+    width: 100%;
+  }
+
+  &__title {
+    color: map.get(colors.$neutrals, "darkBlue");
+    margin-bottom: 50px;
+    width: fit-content;
+    font: map.get(fonts.$heading, "large");
+  }
+
+  &__actions {
+    align-self: flex-end;
+  }
 }
 
 .table__pagination {
   float: right;
-}
-
-.contactList__title {
-  color: map.get(colors.$neutrals, "darkBlue");
-  margin: 0 auto 50px auto;
-  width: fit-content;
 }
 </style>

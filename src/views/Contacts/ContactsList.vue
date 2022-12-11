@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, type RouteParamsRaw } from "vue-router";
 import type { Contact } from "@domain/models/Contact";
 import type { Pagination } from "@domain/models/Pagination";
 import { contactService } from "@domain/services/Contact.service";
@@ -40,12 +40,8 @@ const handleCurrentPageChange = (currentPage: number) => {
   loadContacts(currentPage);
 };
 
-const handleViewContact = (id: string) => {
-  router.push({ name: "contactView", params: { id } });
-};
-
-const handleDeleteContact = (id: string) => {
-  router.push({ name: "contactDelete", params: { id } });
+const handleGoto = (routeName: string, params?: RouteParamsRaw) => {
+  router.push({ name: routeName, params });
 };
 </script>
 
@@ -54,8 +50,9 @@ const handleDeleteContact = (id: string) => {
     :contacts="contacts"
     :loading="isLoading"
     :pagination="tablePagination"
-    @on-click-view-contact="handleViewContact"
-    @on-click-delete-contact="handleDeleteContact"
     @on-current-page-change="handleCurrentPageChange"
+    @on-click-create-contact="handleGoto('contactCreate')"
+    @on-click-view-contact="handleGoto('contactView', { id: $event })"
+    @on-click-delete-contact="handleGoto('contactDelete', { id: $event })"
   ></contacts-list>
 </template>
