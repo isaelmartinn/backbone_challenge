@@ -5,9 +5,10 @@ import type { ContactDTO } from "../http/dto/ContactDTO";
 import type { PaginationDTO } from "../http/dto/PaginationDTO";
 
 export const contactRepository = (client: Http): ContactsRepository => ({
-  getContacts: async () => {
+  getContacts: async (page: number) => {
     const response = await client.get<ContactDTO>(
-      `${import.meta.env.VITE_API_BASE_URL}/contacts`
+      `${import.meta.env.VITE_API_BASE_URL}/contacts`,
+      { page }
     );
 
     const contacts = response.results.map(

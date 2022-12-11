@@ -1,3 +1,3 @@
 export interface ContactsRepository {
-  getContacts: () => Promise<any>;
+  getContacts: (page: number) => Promise<any>;
 }
