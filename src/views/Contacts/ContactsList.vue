@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { contactService } from "@domain/services/Contact.service";
+import { useRouter } from "vue-router";
 import type { Contact } from "@domain/models/Contact";
 import type { Pagination } from "@domain/models/Pagination";
+import { contactService } from "@domain/services/Contact.service";
 
 import ContactsList from "@templates/Contacts/ContactsList.vue";
+
+const router = useRouter();
 
 const contacts = ref<Contact[]>([]);
 
@@ -36,6 +39,10 @@ const loadContacts = async (currentPage: number = 1) => {
 const handleCurrentPageChange = (currentPage: number) => {
   loadContacts(currentPage);
 };
+
+const handleViewContact = (id: string) => {
+  router.push({ name: "contactView", params: { id } });
+};
 </script>
 
 <template>
@@ -43,6 +50,7 @@ const handleCurrentPageChange = (currentPage: number) => {
     :contacts="contacts"
     :loading="isLoading"
     :pagination="tablePagination"
+    @on-click-view-contact="handleViewContact"
     @on-current-page-change="handleCurrentPageChange"
   ></contacts-list>
 </template>

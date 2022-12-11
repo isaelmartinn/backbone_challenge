@@ -16,6 +16,7 @@ const props = defineProps<Props>();
 const currentPage = ref(0);
 
 const emit = defineEmits<{
+  (e: "on-click-view-contact", id: string): void;
   (e: "on-current-page-change", currentPage: number): void;
 }>();
 
@@ -61,6 +62,18 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
           <template #default="{ row: { createdAt } }">
             <el-skeleton v-if="loading" :rows="0" animated />
             <template v-else> {{ formatDate(createdAt) }} </template>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Operations">
+          <template #default="scope">
+            <el-button
+              size="small"
+              :disabled="loading"
+              @click="emit('on-click-view-contact', scope.row.id)"
+            >
+              view
+            </el-button>
           </template>
         </el-table-column>
       </el-table>

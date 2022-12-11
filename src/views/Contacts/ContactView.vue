@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useRouter, useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import type { Contact } from "@domain/models/Contact";
 import { contactService } from "@domain/services/Contact.service";
 

@@ -80,5 +80,4 @@ const props = defineProps<Props>();
     font: map.get(fonts.$paragraph, "medium");
   }
 }
-
 </style>
