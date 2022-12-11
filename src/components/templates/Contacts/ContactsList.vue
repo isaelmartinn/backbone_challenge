@@ -8,6 +8,7 @@ import type { Pagination } from "@domain/models/Pagination";
 interface Props {
   contacts: Contact[];
   pagination: Pagination;
+  loading?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -37,14 +38,29 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
       <el-table :data="props.contacts" stripe>
         <el-table-column label="Name">
           <template #default="{ row: { name } }">
-            {{ name.first }} {{ name.last }}
+            <el-skeleton v-if="loading" :rows="0" animated />
+            <template v-else> {{ name.first }} {{ name.last }} </template>
           </template>
         </el-table-column>
-        <el-table-column prop="email" label="Email" />
-        <el-table-column prop="phone" label="Phone" />
+
+        <el-table-column label="Email">
+          <template #default="{ row: { email } }">
+            <el-skeleton v-if="loading" :rows="0" animated />
+            <template v-else> {{ email }} </template>
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="phone" label="Phone">
+          <template #default="{ row: { phone } }">
+            <el-skeleton v-if="loading" :rows="0" animated />
+            <template v-else> {{ phone }} </template>
+          </template>
+        </el-table-column>
+
         <el-table-column label="Created At">
           <template #default="{ row: { createdAt } }">
-            {{ formatDate(createdAt) }}
+            <el-skeleton v-if="loading" :rows="0" animated />
+            <template v-else> {{ formatDate(createdAt) }} </template>
           </template>
         </el-table-column>
       </el-table>
@@ -52,10 +68,11 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
       <br />
 
       <el-pagination
-        class="table__pagination"
         v-model:current-page="currentPage"
         background
+        class="table__pagination"
         layout="prev, pager, next"
+        :disabled="loading"
         :page-count="props.pagination.totalPages"
         @current-change="handleCurrentPageChange"
       />
