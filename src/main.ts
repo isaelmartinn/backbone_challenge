@@ -1,17 +1,15 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import { create, NButton } from "naive-ui";
+
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
 
 import App from "./App.vue";
 import router from "./router";
 
-const naive = create({
-  components: [NButton],
-});
-
 const app = createApp(App);
 
-app.use(naive);
+app.use(ElementPlus);
 app.use(router);
 app.use(createPinia());
 
