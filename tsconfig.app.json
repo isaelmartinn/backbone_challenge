@@ -13,6 +13,7 @@
       "@views/*": ["./src/views/*"],
       "@domain/*": ["./src/domain/*"],
       "@infrastructure/*": ["./src/infrastructure/*"],
+      "@sass/*": ["./src/assets/sass/*"],
     }
   }
 }

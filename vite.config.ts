@@ -26,6 +26,7 @@ export default defineConfig({
       "@infrastructure": fileURLToPath(
         new URL("./src/infrastructure", import.meta.url)
       ),
+      "@sass": fileURLToPath(new URL("./src/assets/sass", import.meta.url)),
     },
   },
 });
