@@ -60,4 +60,23 @@ export const contactRepository = (client: Http): ContactsRepository => ({
 
     return contact;
   },
+
+  deleteContact: async (id: string) => {
+    const response = await client.delete<ContactDTO>(
+      `${API_BASE_URL}/contacts/${id}`
+    );
+
+    const contact: ContactDTO = {
+      id: response.id,
+      name: {
+        first: response.firstName,
+        last: response.lastName,
+      },
+      email: response.email,
+      phone: response.phone,
+      createdAt: response.createdAt,
+    };
+
+    return contact;
+  },
 });

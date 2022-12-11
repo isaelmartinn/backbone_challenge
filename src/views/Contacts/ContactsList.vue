@@ -43,6 +43,10 @@ const handleCurrentPageChange = (currentPage: number) => {
 const handleViewContact = (id: string) => {
   router.push({ name: "contactView", params: { id } });
 };
+
+const handleDeleteContact = (id: string) => {
+  router.push({ name: "contactDelete", params: { id } });
+};
 </script>
 
 <template>
@@ -51,6 +55,7 @@ const handleViewContact = (id: string) => {
     :loading="isLoading"
     :pagination="tablePagination"
     @on-click-view-contact="handleViewContact"
+    @on-click-delete-contact="handleDeleteContact"
     @on-current-page-change="handleCurrentPageChange"
   ></contacts-list>
 </template>

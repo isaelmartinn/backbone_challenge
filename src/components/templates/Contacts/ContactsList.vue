@@ -17,6 +17,7 @@ const currentPage = ref(0);
 
 const emit = defineEmits<{
   (e: "on-click-view-contact", id: string): void;
+  (e: "on-click-delete-contact", id: string): void;
   (e: "on-current-page-change", currentPage: number): void;
 }>();
 
@@ -74,6 +75,14 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
             >
               view
             </el-button>
+
+            <el-button
+              size="small"
+              :disabled="loading"
+              @click="emit('on-click-delete-contact', scope.row.id)"
+            >
+              delete
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -95,12 +104,8 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
 
 <style lang="scss" scoped>
 @use "@sass/colors" as colors;
-@use "@sass/breakpoints" as bp;
 @use "sass:map";
 
-.contactList {
-  padding: 16px;
-}
 .contactList__table {
   margin: 0 auto;
   width: min(100%, 1000px);
@@ -114,11 +119,5 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
   color: map.get(colors.$neutrals, "darkBlue");
   margin: 0 auto 50px auto;
   width: fit-content;
-}
-
-@media screen and (min-width: map.get(bp.$breakpoints, "768")) {
-  .contactList {
-    padding: 60px;
-  }
 }
 </style>

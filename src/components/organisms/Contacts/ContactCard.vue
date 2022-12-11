@@ -27,7 +27,7 @@ const createdAt = computed(() => dayjs(props.createdAt).format("DD/MM/YYYY"));
 
     <div class="info__wrap">
       <p class="info__title">email:</p>
-      <p class="info__value">
+      <p class="info__value info__email" :title="props.email">
         <el-skeleton v-if="loading" :rows="0" animated />
         <template v-else> {{ props.email }} </template>
       </p>
@@ -55,6 +55,7 @@ const createdAt = computed(() => dayjs(props.createdAt).format("DD/MM/YYYY"));
 @use "sass:map";
 @use "@sass/fonts" as fonts;
 @use "@sass/colors" as colors;
+@use "@sass/breakpoints" as bp;
 
 .contactView__info,
 .info__wrap {
@@ -67,12 +68,12 @@ const createdAt = computed(() => dayjs(props.createdAt).format("DD/MM/YYYY"));
   border-radius: 8px;
   padding: 16px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  overflow: hidden;
 }
 
 .info {
   &__wrap {
-    grid-template-columns: 2fr 10fr;
-    align-items: st;
+    gap: 16px;
   }
 
   &__title {
@@ -83,6 +84,18 @@ const createdAt = computed(() => dayjs(props.createdAt).format("DD/MM/YYYY"));
   &__value {
     color: #495057;
     font: map.get(fonts.$paragraph, "medium");
+  }
+
+  &__email {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+@media screen and (min-width: map.get(bp.$breakpoints, "360")) {
+  .info__wrap {
+    grid-template-columns: 2fr 10fr;
   }
 }
 </style>
