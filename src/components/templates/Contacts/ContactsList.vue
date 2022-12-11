@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { ref, watchEffect } from "vue";
+
 import type { Contact } from "@domain/models/Contact";
 import type { Pagination } from "@domain/models/Pagination";
-import { ref, watchEffect } from "vue";
 
 interface Props {
   contacts: Contact[];
@@ -12,9 +13,17 @@ const props = defineProps<Props>();
 
 const currentPage = ref(0);
 
+const emit = defineEmits<{
+  (e: "on-current-page-change", currentPage: number): void;
+}>();
+
 watchEffect(() => {
   currentPage.value = props.pagination.currentPage;
 });
+
+const handleCurrentPageChange = (currentPage: number) => {
+  emit("on-current-page-change", currentPage);
+};
 </script>
 
 <template>
@@ -37,6 +46,7 @@ watchEffect(() => {
       background
       layout="prev, pager, next"
       :page-count="props.pagination.totalPages"
+      @current-change="handleCurrentPageChange"
     />
   </main>
 </template>

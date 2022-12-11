@@ -14,8 +14,10 @@ let tablePagination = ref<Pagination>({
   totalPages: 0,
 });
 
-onMounted(async () => {
-  const response = await contactService.getContacts();
+onMounted(() => loadContacts());
+
+const loadContacts = async (currentPage: number = 1) => {
+  const response = await contactService.getContacts(currentPage);
 
   contacts.value = response.results;
   tablePagination.value = {
@@ -24,12 +26,17 @@ onMounted(async () => {
     count: response.count,
     totalPages: response.totalPages,
   };
-});
+};
+
+const handleCurrentPageChange = (currentPage: number) => {
+  loadContacts(currentPage);
+};
 </script>
 
 <template>
   <contacts-list
     :contacts="contacts"
     :pagination="tablePagination"
+    @on-current-page-change="handleCurrentPageChange"
   ></contacts-list>
 </template>

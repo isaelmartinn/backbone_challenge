@@ -3,4 +3,4 @@ export type Pagination = {
   perPage: number;
   totalPages: number;
   currentPage: number;
-}
+};
