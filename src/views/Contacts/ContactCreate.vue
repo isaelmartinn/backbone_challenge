@@ -18,13 +18,13 @@ const handleGoBack = () => {
 };
 
 const handleSubmit = async (contact: ApiContact) => {
-  isDisabled.value = true;
   isLoading.value = true;
+  isDisabled.value = true;
 
   const { isOk, data } = await contactService.createContact(contact);
 
-  isDisabled.value = false;
   isLoading.value = false;
+  isDisabled.value = false;
 
   if (!isOk) return;
 

@@ -8,4 +8,6 @@ export interface ContactsRepository {
   deleteContact: (id: string) => Promise<any>;
 
   createContact: (contact: ApiContact) => Promise<any>;
+
+  updateContact: (contact: ApiContact) => Promise<any>;
 }

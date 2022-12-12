@@ -92,14 +92,36 @@ export const contactRepository = (client: Http): ContactsRepository => ({
     if (!response.isOk) return response;
 
     const newContact: ContactDTO = {
-      id: response.id,
+      id: response.data.id,
       name: {
-        first: response.firstName,
-        last: response.lastName,
+        first: response.data.firstName,
+        last: response.data.lastName,
       },
-      email: response.email,
-      phone: response.phone,
-      createdAt: response.createdAt,
+      email: response.data.email,
+      phone: response.data.phone,
+      createdAt: response.data.createdAt,
+    };
+
+    return { ...response, data: newContact };
+  },
+
+  updateContact: async ({ id, ...contact }: ApiContact) => {
+    const response = await client.put(
+      `${API_BASE_URL}/contacts/${id}`,
+      contact
+    );
+
+    if (!response.isOk) return response;
+
+    const newContact: ContactDTO = {
+      id: response.data.id,
+      name: {
+        first: response.data.firstName,
+        last: response.data.lastName,
+      },
+      email: response.data.email,
+      phone: response.data.phone,
+      createdAt: response.data.createdAt,
     };
 
     return { ...response, data: newContact };

@@ -13,27 +13,25 @@ interface Props {
 const props = defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: "on-submit", contact: ApiContact): void;
   (e: "on-click-cancel"): void;
+  (e: "on-submit", contact: ApiContact): void;
 }>();
 
 const formRef = ref<FormInstance>();
 
 const createContactForm = reactive<ApiContact>({
-  firstName: "",
-  lastName: "",
-  phone: "",
   email: "",
+  phone: "",
+  lastName: "",
+  firstName: "",
 });
 
 watchEffect(() => {
-  console.log(props.contactToEdit);
   if (props.contactToEdit) {
-    console.log("enter");
-    createContactForm.firstName = props.contactToEdit.name.first;
-    createContactForm.lastName = props.contactToEdit.name.last;
     createContactForm.email = props.contactToEdit.email;
     createContactForm.phone = props.contactToEdit.phone;
+    createContactForm.lastName = props.contactToEdit.name.last;
+    createContactForm.firstName = props.contactToEdit.name.first;
   }
 });
 
@@ -52,9 +50,9 @@ const emailRules = [
   },
 ];
 const phoneRules = [
+  { len: 10, message: "Phone must be 10 digits" },
   { required: true, message: "This field is required" },
   { type: "string", pattern: "^[0-9]+$", message: "Phone must be a number" },
-  { len: 10, message: "Phone must be 10 digits" },
 ];
 
 const handleSubmit = (formEl: FormInstance | undefined) => {
@@ -64,10 +62,10 @@ const handleSubmit = (formEl: FormInstance | undefined) => {
     if (!valid) return false;
 
     emit("on-submit", {
-      firstName: createContactForm.firstName,
-      lastName: createContactForm.lastName,
       email: createContactForm.email,
       phone: createContactForm.phone,
+      lastName: createContactForm.lastName,
+      firstName: createContactForm.firstName,
     });
   });
 };
@@ -77,6 +75,7 @@ const resetContactForm = () => {
 
   formRef.value.resetFields();
 };
+
 defineExpose({
   resetContactForm,
 });
