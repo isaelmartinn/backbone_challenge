@@ -56,6 +56,7 @@ const handleGoto = (routeName: string, params?: RouteParamsRaw) => {
     @on-current-page-change="handleCurrentPageChange"
     @on-click-create-contact="handleGoto('contactCreate')"
     @on-click-view-contact="handleGoto('contactView', { id: $event })"
+    @on-click-edit-contact="handleGoto('contactEdit', { id: $event })"
     @on-click-delete-contact="handleGoto('contactDelete', { id: $event })"
   ></contacts-list>
 </template>
