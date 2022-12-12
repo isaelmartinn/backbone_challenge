@@ -83,6 +83,8 @@ export const contactRepository = (client: Http): ContactsRepository => ({
   createContact: async (contact: ApiContact) => {
     const response = await client.post(`${API_BASE_URL}/contacts`, contact);
 
+    if (!response.isOk) return response;
+
     const newContact: ContactDTO = {
       id: response.id,
       name: {
@@ -94,6 +96,6 @@ export const contactRepository = (client: Http): ContactsRepository => ({
       createdAt: response.createdAt,
     };
 
-    return newContact;
+    return { ...response, data: newContact };
   },
 });

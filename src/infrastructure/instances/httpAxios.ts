@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ElMessage } from "element-plus";
 import type { Http } from "@domain/repositories/Http";
 
 const headers = {
@@ -16,14 +17,28 @@ export const httpAxios: Http = {
     return response.data as T;
   },
 
-  post: async <T>(path: string, params?: Record<string, any>, config?: any) => {
-    const response = await axios.post(
-      path,
-      { ...params },
-      { ...config, headers }
-    );
+  post: async (path: string, params?: Record<string, any>, config?: any) => {
+    try {
+      const response = await axios.post(
+        path,
+        { ...params },
+        { ...config, headers }
+      );
 
-    return response.data as T;
+      return { isOk: true, data: response.data, error: null };
+    } catch (error) {
+      const err = axios.isAxiosError(error)
+        ? error.response?.data
+        : { message: "An unexpected error occurred" };
+
+      ElMessage({
+        type: "error",
+        duration: 4000,
+        message: err.message,
+      });
+
+      return { isOk: false, data: null, error: err };
+    }
   },
 
   put: async <T>(path: string, params?: Record<string, any>, config?: any) => {

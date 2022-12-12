@@ -21,16 +21,18 @@ const handleSubmit = async (contact: ApiContact) => {
   isDisabled.value = true;
   isLoading.value = true;
 
-  const response = await contactService.createContact(contact);
-
-  contactCreateRef.value.contactFormRef.resetContactForm();
+  const { isOk, data } = await contactService.createContact(contact);
 
   isDisabled.value = false;
   isLoading.value = false;
 
+  if (!isOk) return;
+
+  contactCreateRef.value.contactFormRef.resetContactForm();
+
   ElMessage({
     type: "success",
-    message: `Contact ${response.name.first} ${response.name.last} created`,
+    message: `Contact ${data.name.first} ${data.name.last} created`,
   });
 };
 </script>
