@@ -40,7 +40,8 @@ const emailRules = [
 ];
 const phoneRules = [
   { required: true, message: "This field is required" },
-  { type: "number", message: "Phone must be a number" },
+  { type: "string", pattern: "^[0-9]+$", message: "Phone must be a number" },
+  { len: 10, message: "Phone must be 10 digits" },
 ];
 
 const handleSubmit = (formEl: FormInstance | undefined) => {
@@ -53,7 +54,7 @@ const handleSubmit = (formEl: FormInstance | undefined) => {
       firstName: createContactForm.firstName,
       lastName: createContactForm.lastName,
       email: createContactForm.email,
-      phone: createContactForm.phone.toString(),
+      phone: createContactForm.phone,
     });
   });
 };
@@ -105,7 +106,7 @@ defineExpose({
 
     <el-form-item label="Phone" prop="phone" :rules="phoneRules">
       <el-input
-        v-model.number="createContactForm.phone"
+        v-model="createContactForm.phone"
         type="text"
         autocomplete="off"
         :disabled="props.disabled"
