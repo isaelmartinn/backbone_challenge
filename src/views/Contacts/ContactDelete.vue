@@ -31,10 +31,13 @@ onMounted(async () => {
   isLoading.value = true;
   contactId.value = route.params.id;
 
-  const response = await contactService.getContact(contactId.value);
-  contact.value = response;
+  const { isOk, data } = await contactService.getContact(contactId.value);
 
   isLoading.value = false;
+
+  if (!isOk) return;
+
+  contact.value = data;
 });
 
 const handleGoBack = () => {
@@ -44,13 +47,15 @@ const handleGoBack = () => {
 const handleDeleteContact = async () => {
   btnOptions.value.isLoading = true;
 
-  const response = await contactService.deleteContact(contact.value.id);
+  const { isOk, data } = await contactService.deleteContact(contact.value.id);
 
   btnOptions.value.isLoading = false;
 
+  if (!isOk) return;
+
   ElMessage({
     type: "success",
-    message: `Contact ${response.name.first} ${response.name.last} deleted`,
+    message: `Contact ${data.name.first} ${data.name.last} deleted`,
   });
 
   router.push({ name: "home" });

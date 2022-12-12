@@ -27,10 +27,13 @@ onMounted(async () => {
   isLoading.value = true;
   contactId.value = route.params.id;
 
-  const response = await contactService.getContact(contactId.value);
-  contact.value = response;
+  const { isOk, data } = await contactService.getContact(contactId.value);
 
   isLoading.value = false;
+
+  if (!isOk) return;
+
+  contact.value = data;
 });
 
 const handleGoBack = () => {

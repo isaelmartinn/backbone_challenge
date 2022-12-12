@@ -12,7 +12,9 @@ export const contactRepository = (client: Http): ContactsRepository => ({
       page,
     });
 
-    const contacts = response.results.map(
+    if (!response.isOk) return response;
+
+    const contacts = response.data.results.map(
       (contactDTO: {
         id: string;
         firstName: string;
@@ -33,13 +35,13 @@ export const contactRepository = (client: Http): ContactsRepository => ({
     );
 
     const pagination: PaginationDTO = {
-      count: response.count,
-      perPage: response.perPage,
-      currentPage: response.currentPage,
-      totalPages: response.totalPages,
+      count: response.data.count,
+      perPage: response.data.perPage,
+      currentPage: response.data.currentPage,
+      totalPages: response.data.totalPages,
     };
 
-    return { ...pagination, results: contacts };
+    return { ...response, data: { ...pagination, results: contacts } };
   },
 
   getContact: async (id: string | string[]) => {
@@ -47,18 +49,20 @@ export const contactRepository = (client: Http): ContactsRepository => ({
       `${API_BASE_URL}/contacts/${id}`
     );
 
+    if (!response.isOk) return response;
+
     const contact: ContactDTO = {
-      id: response.id,
+      id: response.data.id,
       name: {
-        first: response.firstName,
-        last: response.lastName,
+        first: response.data.firstName,
+        last: response.data.lastName,
       },
-      email: response.email,
-      phone: response.phone,
-      createdAt: response.createdAt,
+      email: response.data.email,
+      phone: response.data.phone,
+      createdAt: response.data.createdAt,
     };
 
-    return contact;
+    return { ...response, data: contact };
   },
 
   deleteContact: async (id: string) => {
@@ -66,18 +70,20 @@ export const contactRepository = (client: Http): ContactsRepository => ({
       `${API_BASE_URL}/contacts/${id}`
     );
 
+    if (!response.isOk) return response;
+
     const contact: ContactDTO = {
-      id: response.id,
+      id: response.data.id,
       name: {
-        first: response.firstName,
-        last: response.lastName,
+        first: response.data.firstName,
+        last: response.data.lastName,
       },
-      email: response.email,
-      phone: response.phone,
-      createdAt: response.createdAt,
+      email: response.data.email,
+      phone: response.data.phone,
+      createdAt: response.data.createdAt,
     };
 
-    return contact;
+    return { ...response, data: contact };
   },
 
   createContact: async (contact: ApiContact) => {

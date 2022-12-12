@@ -23,14 +23,17 @@ onMounted(() => loadContacts());
 
 const loadContacts = async (currentPage: number = 1) => {
   isLoading.value = true;
-  const response = await contactService.getContacts(currentPage);
 
-  contacts.value = response.results;
+  const { isOk, data } = await contactService.getContacts(currentPage);
+
+  if (!isOk) return;
+
+  contacts.value = data.results;
   tablePagination.value = {
-    perPage: response.perPage,
-    currentPage: response.currentPage,
-    count: response.count,
-    totalPages: response.totalPages,
+    perPage: data.perPage,
+    currentPage: data.currentPage,
+    count: data.count,
+    totalPages: data.totalPages,
   };
 
   isLoading.value = false;
