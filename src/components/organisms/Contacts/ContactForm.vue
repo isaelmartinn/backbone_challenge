@@ -6,6 +6,7 @@ import type { ApiContact } from "@domain/models/Contact";
 interface Props {
   loading?: boolean;
   disabled?: boolean;
+  primaryBtnLabel: string;
 }
 
 const props = defineProps<Props>();
@@ -113,25 +114,43 @@ defineExpose({
       />
     </el-form-item>
 
-    <el-form-item class="contactForm__actions">
-      <el-button @click="emit('on-click-cancel')" :disabled="props.disabled">
-        Cancel
-      </el-button>
+    <el-form-item>
+      <div class="contactForm__actions">
+        <el-button @click="emit('on-click-cancel')" :disabled="props.disabled">
+          Cancel
+        </el-button>
 
-      <el-button
-        type="primary"
-        native-type="submit"
-        :loading="props.loading"
-        :disabled="props.disabled"
-      >
-        Submit
-      </el-button>
+        <el-button
+          type="primary"
+          native-type="submit"
+          :loading="props.loading"
+          :disabled="props.disabled"
+        >
+          {{ props.primaryBtnLabel }}
+        </el-button>
+      </div>
     </el-form-item>
   </el-form>
 </template>
 
 <style scoped lang="scss">
+@use "sass:map";
+@use "@sass/breakpoints" as bp;
+
 .contactForm__actions {
-  float: right;
+  width: 100%;
+  display: grid;
+  gap: 16px;
+
+  button {
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: map.get(bp.$breakpoints, "768")) {
+  .contactForm__actions {
+    grid-auto-flow: column;
+    justify-content: end;
+  }
 }
 </style>

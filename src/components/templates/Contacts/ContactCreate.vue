@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import type { ApiContact } from "@domain/models/Contact";
 
 import ContactForm from "@organisms/Contacts/ContactForm.vue";
-import { ref } from "vue";
 
 interface Props {
+  title: string;
   loading?: boolean;
   disabled?: boolean;
+  primaryBtnLabel: string;
 }
 
 const props = defineProps<Props>();
@@ -27,7 +29,7 @@ defineExpose({
   <main class="contactCreate">
     <el-page-header @back="emit('on-click-go-back')">
       <template #content>
-        <h1 class="contactCreate__title">View contact</h1>
+        <h1 class="contactCreate__title">{{ props.title }}</h1>
       </template>
     </el-page-header>
 
@@ -35,6 +37,7 @@ defineExpose({
       ref="contactFormRef"
       :loading="props.loading"
       :disabled="props.disabled"
+      :primary-btn-label="primaryBtnLabel"
       @on-submit="emit('on-submit', $event)"
       @on-click-cancel="emit('on-click-go-back')"
     />
@@ -48,9 +51,11 @@ defineExpose({
 .contactCreate {
   display: grid;
   row-gap: 20px;
-}
+  margin: 50px auto 0 auto;
+  width: min(100%, 500px);
 
-.contactCreate__title {
-  font: map.get(fonts.$paragraph, "medium");
+  &__title {
+    font: map.get(fonts.$paragraph, "medium");
+  }
 }
 </style>

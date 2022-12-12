@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 
-import ContactEdit from "@templates/Contacts/ContactEdit.vue";
+import ContactCreate from "@templates/Contacts/ContactCreate.vue";
 
 const router = useRouter();
 
@@ -11,5 +11,9 @@ const handleGoBack = () => {
 </script>
 
 <template>
-  <contact-edit @on-click-go-back="handleGoBack"></contact-edit>
+  <contact-create
+    title="Edit contact"
+    primary-btn-label="Edit"
+    @on-click-go-back="handleGoBack"
+  ></contact-create>
 </template>

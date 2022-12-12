@@ -39,7 +39,9 @@ const handleSubmit = async (contact: ApiContact) => {
 
 <template>
   <contact-create
+    title="View contact"
     ref="contactCreateRef"
+    primary-btn-label="Create"
     :loading="isLoading"
     :disabled="isDisabled"
     @on-click-go-back="handleGoBack"
