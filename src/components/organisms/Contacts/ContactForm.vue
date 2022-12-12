@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { reactive, ref } from "vue";
+import { reactive, ref, watchEffect } from "vue";
 import type { FormInstance } from "element-plus";
-import type { ApiContact } from "@domain/models/Contact";
+import type { ApiContact, Contact } from "@domain/models/Contact";
 
 interface Props {
   loading?: boolean;
   disabled?: boolean;
   primaryBtnLabel: string;
+  contactToEdit?: Contact;
 }
 
 const props = defineProps<Props>();
@@ -23,6 +24,17 @@ const createContactForm = reactive<ApiContact>({
   lastName: "",
   phone: "",
   email: "",
+});
+
+watchEffect(() => {
+  console.log(props.contactToEdit);
+  if (props.contactToEdit) {
+    console.log("enter");
+    createContactForm.firstName = props.contactToEdit.name.first;
+    createContactForm.lastName = props.contactToEdit.name.last;
+    createContactForm.email = props.contactToEdit.email;
+    createContactForm.phone = props.contactToEdit.phone;
+  }
 });
 
 const nameRules = [

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import type { ApiContact } from "@domain/models/Contact";
+import type { ApiContact, Contact } from "@domain/models/Contact";
 
 import ContactForm from "@organisms/Contacts/ContactForm.vue";
 
@@ -9,6 +9,7 @@ interface Props {
   loading?: boolean;
   disabled?: boolean;
   primaryBtnLabel: string;
+  contactToEdit?: Contact;
 }
 
 const props = defineProps<Props>();
@@ -37,6 +38,7 @@ defineExpose({
       ref="contactFormRef"
       :loading="props.loading"
       :disabled="props.disabled"
+      :contact-to-edit="contactToEdit"
       :primary-btn-label="primaryBtnLabel"
       @on-submit="emit('on-submit', $event)"
       @on-click-cancel="emit('on-click-go-back')"
