@@ -18,4 +18,8 @@ export const contactService = {
   createContact: (contact: ApiContact) => {
     return contactRepository(httpAxios).createContact(contact);
   },
+
+  updateContact: (contact: ApiContact) => {
+    return contactRepository(httpAxios).updateContact(contact);
+  },
 };

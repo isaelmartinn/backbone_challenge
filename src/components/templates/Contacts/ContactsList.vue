@@ -17,6 +17,7 @@ const currentPage = ref(0);
 
 const emit = defineEmits<{
   (e: "on-click-create-contact"): void;
+  (e: "on-click-edit-contact", id: string): void;
   (e: "on-click-view-contact", id: string): void;
   (e: "on-click-delete-contact", id: string): void;
   (e: "on-current-page-change", currentPage: number): void;
@@ -84,7 +85,7 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
               :disabled="loading"
               @click="emit('on-click-view-contact', scope.row.id)"
             >
-              view
+              View
             </el-button>
 
             <el-button
@@ -92,7 +93,15 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
               :disabled="loading"
               @click="emit('on-click-delete-contact', scope.row.id)"
             >
-              delete
+              Delete
+            </el-button>
+
+            <el-button
+              size="small"
+              :disabled="loading"
+              @click="emit('on-click-edit-contact', scope.row.id)"
+            >
+              Edit
             </el-button>
           </template>
         </el-table-column>

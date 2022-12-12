@@ -12,8 +12,9 @@ export type Contact = {
 };
 
 export type ApiContact = {
-  firstName: string;
-  lastName: string;
+  id?: string;
   email: string;
   phone: string;
+  lastName: string;
+  firstName: string;
 };
