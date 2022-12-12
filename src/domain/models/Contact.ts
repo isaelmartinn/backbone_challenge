@@ -10,3 +10,10 @@ export type Contact = {
   phone: string;
   createdAt: string;
 };
+
+export type ApiContact = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+};
