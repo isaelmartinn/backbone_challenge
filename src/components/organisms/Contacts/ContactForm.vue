@@ -3,6 +3,13 @@ import { reactive, ref } from "vue";
 import type { FormInstance } from "element-plus";
 import type { ApiContact } from "@domain/models/Contact";
 
+interface Props {
+  loading?: boolean;
+  disabled?: boolean;
+}
+
+const props = defineProps<Props>();
+
 const emit = defineEmits<{
   (e: "on-submit", contact: ApiContact): void;
   (e: "on-click-cancel"): void;
@@ -21,7 +28,7 @@ const nameRules = [
   { required: true, message: "This field is required" },
   {
     min: 3,
-    message: "Length should be mote than 3",
+    message: "Length should be more than 3",
   },
 ];
 const emailRules = [
@@ -46,10 +53,19 @@ const handleSubmit = (formEl: FormInstance | undefined) => {
       firstName: createContactForm.firstName,
       lastName: createContactForm.lastName,
       email: createContactForm.email,
-      phone: createContactForm.phone,
+      phone: createContactForm.phone.toString(),
     });
   });
 };
+
+const resetContactForm = () => {
+  if (!formRef.value) return;
+
+  formRef.value.resetFields();
+};
+defineExpose({
+  resetContactForm,
+});
 </script>
 
 <template>
@@ -65,6 +81,7 @@ const handleSubmit = (formEl: FormInstance | undefined) => {
         v-model="createContactForm.firstName"
         type="text"
         autocomplete="off"
+        :disabled="props.disabled"
       />
     </el-form-item>
 
@@ -73,6 +90,7 @@ const handleSubmit = (formEl: FormInstance | undefined) => {
         v-model="createContactForm.lastName"
         type="text"
         autocomplete="off"
+        :disabled="props.disabled"
       />
     </el-form-item>
 
@@ -81,6 +99,7 @@ const handleSubmit = (formEl: FormInstance | undefined) => {
         v-model="createContactForm.email"
         type="text"
         autocomplete="off"
+        :disabled="props.disabled"
       />
     </el-form-item>
 
@@ -89,13 +108,23 @@ const handleSubmit = (formEl: FormInstance | undefined) => {
         v-model.number="createContactForm.phone"
         type="text"
         autocomplete="off"
+        :disabled="props.disabled"
       />
     </el-form-item>
 
     <el-form-item class="contactForm__actions">
-      <el-button @click="emit('on-click-cancel')">Cancel</el-button>
+      <el-button @click="emit('on-click-cancel')" :disabled="props.disabled">
+        Cancel
+      </el-button>
 
-      <el-button type="primary" native-type="submit">Submit</el-button>
+      <el-button
+        type="primary"
+        native-type="submit"
+        :loading="props.loading"
+        :disabled="props.disabled"
+      >
+        Submit
+      </el-button>
     </el-form-item>
   </el-form>
 </template>

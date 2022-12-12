@@ -17,21 +17,21 @@ export const httpAxios: Http = {
   },
 
   post: async <T>(path: string, params?: Record<string, any>, config?: any) => {
-    const response = await axios.get(path, {
-      ...config,
-      params: params,
-      headers,
-    });
+    const response = await axios.post(
+      path,
+      { ...params },
+      { ...config, headers }
+    );
 
     return response.data as T;
   },
 
   put: async <T>(path: string, params?: Record<string, any>, config?: any) => {
-    const response = await axios.get(path, {
-      ...config,
-      params: params,
-      headers,
-    });
+    const response = await axios.put(
+      path,
+      { ...params },
+      { ...config, headers }
+    );
 
     return response.data as T;
   },

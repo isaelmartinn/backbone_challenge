@@ -2,11 +2,25 @@
 import type { ApiContact } from "@domain/models/Contact";
 
 import ContactForm from "@organisms/Contacts/ContactForm.vue";
+import { ref } from "vue";
+
+interface Props {
+  loading?: boolean;
+  disabled?: boolean;
+}
+
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: "on-submit", contact: ApiContact): void;
   (e: "on-click-go-back"): void;
 }>();
+
+const contactFormRef = ref();
+
+defineExpose({
+  contactFormRef,
+});
 </script>
 
 <template>
@@ -18,6 +32,9 @@ const emit = defineEmits<{
     </el-page-header>
 
     <contact-form
+      ref="contactFormRef"
+      :loading="props.loading"
+      :disabled="props.disabled"
       @on-submit="emit('on-submit', $event)"
       @on-click-cancel="emit('on-click-go-back')"
     />

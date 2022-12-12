@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import { ElMessage } from "element-plus";
 import { useRouter, useRoute } from "vue-router";
 import type { Contact } from "@domain/models/Contact";
 import { contactService } from "@domain/services/Contact.service";
-import { ElMessage } from "element-plus";
 
 import ContactView from "@templates/Contacts/ContactView.vue";
 

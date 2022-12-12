@@ -1,4 +1,4 @@
-import type { Contact } from "@domain/models/Contact";
+import type { ApiContact, Contact } from "@domain/models/Contact";
 import type { Http } from "@domain/repositories/Http";
 import type { ContactsRepository } from "@domain/repositories/ContactsRepository";
 import type { ContactDTO } from "../http/dto/ContactDTO";
@@ -78,5 +78,22 @@ export const contactRepository = (client: Http): ContactsRepository => ({
     };
 
     return contact;
+  },
+
+  createContact: async (contact: ApiContact) => {
+    const response = await client.post(`${API_BASE_URL}/contacts`, contact);
+
+    const newContact: ContactDTO = {
+      id: response.id,
+      name: {
+        first: response.firstName,
+        last: response.lastName,
+      },
+      email: response.email,
+      phone: response.phone,
+      createdAt: response.createdAt,
+    };
+
+    return newContact;
   },
 });
