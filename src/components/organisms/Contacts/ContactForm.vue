@@ -112,6 +112,7 @@ defineExpose({
         v-model="createContactForm.email"
         type="text"
         autocomplete="off"
+        data-testid="email"
         :disabled="props.disabled"
       />
     </el-form-item>

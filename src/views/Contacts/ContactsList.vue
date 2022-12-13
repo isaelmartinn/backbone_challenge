@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { useRouter, type RouteParamsRaw } from "vue-router";
 import type { Contact } from "@domain/models/Contact";
+import { usePaginationStore } from "@/stores/pagination";
+import { useRouter, type RouteParamsRaw } from "vue-router";
 import type { Pagination } from "@domain/models/Pagination";
 import { contactService } from "@domain/services/Contact.service";
 
 import ContactsList from "@templates/Contacts/ContactsList.vue";
+
+const paginationStore = usePaginationStore();
 
 const router = useRouter();
 
@@ -19,7 +22,11 @@ let tablePagination = ref<Pagination>({
   totalPages: 0,
 });
 
-onMounted(() => loadContacts());
+onMounted(() => {
+  const currentPage = paginationStore.getCurrentPage;
+
+  loadContacts(currentPage);
+});
 
 const loadContacts = async (currentPage: number = 1) => {
   isLoading.value = true;
@@ -40,6 +47,8 @@ const loadContacts = async (currentPage: number = 1) => {
 };
 
 const handleCurrentPageChange = (currentPage: number) => {
+  paginationStore.setCurrentPage(currentPage);
+
   loadContacts(currentPage);
 };
 

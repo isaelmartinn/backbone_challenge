@@ -17,5 +17,5 @@ export type ApiContact = {
   phone: string;
   lastName: string;
   firstName: string;
-  createdAt: string;
+  createdAt?: string;
 };
