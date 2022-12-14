@@ -14,6 +14,7 @@ const router = useRouter();
 
 const contacts = ref<Contact[]>([]);
 
+let query = ref("");
 let isLoading = ref(false);
 let tablePagination = ref<Pagination>({
   perPage: 0,
@@ -23,15 +24,15 @@ let tablePagination = ref<Pagination>({
 });
 
 onMounted(() => {
-  const currentPage = paginationStore.getCurrentPage;
+  const page = paginationStore.getCurrentPage;
 
-  loadContacts(currentPage);
+  loadContacts({ page });
 });
 
-const loadContacts = async (currentPage: number = 1) => {
+const loadContacts = async (ops: { page: number; query?: string }) => {
   isLoading.value = true;
 
-  const { isOk, data } = await contactService.getContacts(currentPage);
+  const { isOk, data } = await contactService.getContacts(ops);
 
   if (!isOk) return;
 
@@ -46,14 +47,20 @@ const loadContacts = async (currentPage: number = 1) => {
   isLoading.value = false;
 };
 
-const handleCurrentPageChange = (currentPage: number) => {
-  paginationStore.setCurrentPage(currentPage);
+const handleCurrentPageChange = (ops: { page: number; query: string }) => {
+  paginationStore.setCurrentPage(ops.page);
 
-  loadContacts(currentPage);
+  loadContacts(ops);
 };
 
 const handleGoto = (routeName: string, params?: RouteParamsRaw) => {
   router.push({ name: routeName, params });
+};
+
+const handleSearch = (search: string) => {
+  query.value = search;
+
+  loadContacts({ page: 1, query: query.value });
 };
 </script>
 
@@ -62,10 +69,11 @@ const handleGoto = (routeName: string, params?: RouteParamsRaw) => {
     :contacts="contacts"
     :loading="isLoading"
     :pagination="tablePagination"
-    @on-current-page-change="handleCurrentPageChange"
+    @on-search="handleSearch"
     @on-click-create-contact="handleGoto('contactCreate')"
     @on-click-view-contact="handleGoto('contactView', { id: $event })"
     @on-click-edit-contact="handleGoto('contactEdit', { id: $event })"
     @on-click-delete-contact="handleGoto('contactDelete', { id: $event })"
+    @on-current-page-change="handleCurrentPageChange({ page: $event, query })"
   ></contacts-list>
 </template>

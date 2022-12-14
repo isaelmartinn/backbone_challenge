@@ -1,7 +1,7 @@
 import type { ApiContact } from "../models/Contact";
 
 export interface ContactsRepository {
-  getContacts: (page: number) => Promise<any>;
+  getContacts: (ops: { page: number; query?: string }) => Promise<any>;
 
   getContact: (id: string | string[]) => Promise<any>;
 

@@ -3,8 +3,8 @@ import { contactRepository } from "@infrastructure/repositories/contactRepositor
 import type { ApiContact } from "../models/Contact";
 
 export const contactService = {
-  getContacts: (page: number = 1) => {
-    return contactRepository(httpAxios).getContacts(page);
+  getContacts: ({ page = 1, query }: { page: number; query?: string }) => {
+    return contactRepository(httpAxios).getContacts({ page, query });
   },
 
   getContact: (id: string | string[]) => {
