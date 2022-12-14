@@ -124,3 +124,37 @@ interface ImportMetaEnv {
   // more env variables...
 }
 ```
+
+## Project
+
+First I made a sketch in figma of how to visualize the screens of this project, this helps me to be a little clearer how I want these screens to look at the end of the project.
+
+The are my sketch than I have made.
+
+![Contact List](./resources/contact_list.png)
+
+![Contact Create](./resources/contact_create.png)
+
+![Contact Delete](./resources/contact_delete.png)
+
+![Contact View](./resources/contact_view.png)
+
+![Contact Edit](./resources/contact_edit.png)
+
+
+### Design System: Atomic Design
+
+Use the design system called [atomic design](https://bradfrost.com/blog/post/atomic-web-design/) to have a better order in the creation of the interfaces, which is more structured and with better guidelines.
+
+### Hexagonal Architecture
+
+It also implements the hexagonal architecture to build the project, since this architecture gives us more maintainability and scalability to the projects.
+
+
+### Fonts
+
+This project use [Montserrat](https://fonts.google.com/specimen/Montserrat) typography.
+
+### SASS
+
+This project use [SASS](https://sass-lang.com/) as CSS preprocessor
