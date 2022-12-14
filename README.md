@@ -150,7 +150,6 @@ Use the design system called [atomic design](https://bradfrost.com/blog/post/ato
 
 It also implements the hexagonal architecture to build the project, since this architecture gives us more maintainability and scalability to the projects.
 
-
 ### Fonts
 
 This project use [Montserrat](https://fonts.google.com/specimen/Montserrat) typography.
