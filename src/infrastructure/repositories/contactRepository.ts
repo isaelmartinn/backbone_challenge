@@ -20,9 +20,10 @@ const contact2Dto = (contact: ApiContact): ContactDTO => {
 };
 
 export const contactRepository = (client: Http): ContactsRepository => ({
-  getContacts: async (page: number) => {
+  getContacts: async ({ page, query }: { page: number; query?: string }) => {
     const response = await client.get<ContactDTO>(`${API_BASE_URL}/contacts`, {
       page,
+      email_contains: query,
     });
 
     if (!response.isOk) return response;

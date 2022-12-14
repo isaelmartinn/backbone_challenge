@@ -13,10 +13,12 @@ interface Props {
 
 const props = defineProps<Props>();
 
+const query = ref("");
 const currentPage = ref(0);
 
 const emit = defineEmits<{
   (e: "on-click-create-contact"): void;
+  (e: "on-search", query: string): void;
   (e: "on-click-edit-contact", id: string): void;
   (e: "on-click-view-contact", id: string): void;
   (e: "on-click-delete-contact", id: string): void;
@@ -39,7 +41,14 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
     <h1 class="contactList__title">Contacts List</h1>
 
     <div class="contactList__actions">
+      <form @submit.prevent="emit('on-search', query)" class="actions__search">
+        <el-input v-model="query" placeholder="Search by email" />
+
+        <el-button size="large" native-type="submit"> Search </el-button>
+      </form>
+
       <el-button
+        class="actions__create"
         size="large"
         type="primary"
         @click="emit('on-click-create-contact')"
@@ -124,8 +133,9 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
 
 <style lang="scss" scoped>
 @use "sass:map";
-@use "@sass/colors" as colors;
 @use "@sass/fonts" as fonts;
+@use "@sass/colors" as colors;
+@use "@sass/breakpoints" as bp;
 
 .contactList {
   display: flex;
@@ -147,11 +157,30 @@ const formatDate = (date: string) => dayjs(date).format("DD/MM/YYYY");
   }
 
   &__actions {
-    align-self: flex-end;
+    display: grid;
+    width: 100%;
+    gap: 20px 50px;
   }
+}
+
+.actions__search {
+  display: grid;
+  grid-template-columns: 12fr auto;
+  column-gap: 16px;
 }
 
 .table__pagination {
   float: right;
+}
+
+@media screen and (min-width: map.get(bp.$breakpoints, "768")) {
+  .contactList__actions {
+    grid-auto-flow: column;
+  }
+
+  .actions__create {
+    width: fit-content;
+    justify-self: end;
+  }
 }
 </style>
