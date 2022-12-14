@@ -23,7 +23,7 @@ export const contactRepository = (client: Http): ContactsRepository => ({
   getContacts: async ({ page, query }: { page: number; query?: string }) => {
     const response = await client.get<ContactDTO>(`${API_BASE_URL}/contacts`, {
       page,
-      email_contains: query,
+      email_contains: query || undefined,
     });
 
     if (!response.isOk) return response;
